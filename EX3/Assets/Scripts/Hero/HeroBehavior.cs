@@ -7,7 +7,7 @@ public class HeroBehavior : MonoBehaviour {
     private EggSpawnSystem mEggSystem = null;
     private const float kHeroRotateSpeed = 90f/2f; // 90-degrees in 2 seconds
     private const float kHeroSpeed = 20f;  // 20-units in a second
-    private float mHeroSpeed = kHeroSpeed;
+    public float mHeroSpeed = kHeroSpeed;
     
     private bool mMouseDrive = true;
     //  Hero state
