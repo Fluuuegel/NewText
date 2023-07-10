@@ -31,8 +31,10 @@ public class EggBehavior : MonoBehaviour
     {
         // Debug.Log("Egg OnTriggerEnter");
         // Collision with hero (especially when first spawned) does not count
-        if (collision.gameObject.name != "Hero") 
+        if (collision.gameObject.name != "Hero" && collision.gameObject.name != "Egg(Clone)")
+        {
             DestroyThisEgg(collision.gameObject.name);
+        }
     }
 
     private void DestroyThisEgg(string name)

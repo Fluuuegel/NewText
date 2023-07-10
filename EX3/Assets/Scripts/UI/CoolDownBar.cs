@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class CoolDownBar : MonoBehaviour
 {
-    public float mSecToCoolDown = 1f;
-    private float mLastTriggered = 0f;
+    public float mSecToCoolDown = 0.2f;
+    public float mLastTriggered = 0f;
     private bool mActive = false;
     private float mInitBarWidth = 0f;
 
