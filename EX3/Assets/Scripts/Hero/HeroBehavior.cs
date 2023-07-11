@@ -62,8 +62,9 @@ public class HeroBehavior : MonoBehaviour {
         {
             if (Input.GetKey("space"))
             {
-                mEggSystem.SpawnAnEgg(transform.position, transform.up);
-                mCoolDown.TriggerCoolDown();
+                if(mCoolDown.TriggerCoolDown())
+                    mEggSystem.SpawnAnEgg(transform.position, transform.up);
+                
             }
 
         }
