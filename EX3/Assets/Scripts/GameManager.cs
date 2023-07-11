@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     public HeroBehavior mHero = null;
     private EnemySpawnSystem mEnemySystem = null;
 
+    private WayPointSpawnSystem mWayPointSystem = null;
+
     private CameraSupport mMainCamera;
 
     private void Start()
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
         Bounds b = mMainCamera.GetWorldBound();
         mEnemySystem = new EnemySpawnSystem(b.min, b.max);
+        mWayPointSystem = new WayPointSpawnSystem();
     }
 
 	void Update () {
