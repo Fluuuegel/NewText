@@ -23,7 +23,7 @@ public class WayPointBehavior : MonoBehaviour
             if (mNumHit < kHitsToDestroy)
             {
                 Color c = GetComponent<Renderer>().material.color;
-                c.a = c.a * kWayPointEnergyLost;
+                c.a = c.a - kWayPointEnergyLost;
                 GetComponent<Renderer>().material.color = c;
             } else
             {
