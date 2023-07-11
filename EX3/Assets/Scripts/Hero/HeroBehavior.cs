@@ -62,8 +62,10 @@ public class HeroBehavior : MonoBehaviour {
         {
             if (Input.GetKey("space"))
             {
+                if(mCoolDown.TriggerCoolDown())
+                    //sync with the egg spawn system
                 mEggSystem.SpawnAnEgg(transform.position, transform.up);
-                mCoolDown.TriggerCoolDown();
+                
             }
 
         }
@@ -71,7 +73,7 @@ public class HeroBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hero touched");
+       // Debug.Log("Hero touched");
         if (collision.gameObject.name == "Enemy(Clone)")
             TouchedEnemy();
     }

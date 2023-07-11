@@ -15,7 +15,7 @@ public class CoolDownBar : MonoBehaviour
     {
         RectTransform r = GetComponent<RectTransform>();
         mInitBarWidth = r.sizeDelta.x;  // This is the width of the Rect Transform
-
+        mSecToCoolDown = 0.2f;
         mLastTriggered = Time.time; // time last triggered
     }
 
@@ -68,6 +68,7 @@ public class CoolDownBar : MonoBehaviour
             mLastTriggered = Time.time;
             UpdateCoolDownBar();
         }
+
         return canTrigger;
     }
 
