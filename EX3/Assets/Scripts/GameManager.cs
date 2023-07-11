@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     public Text mGameStateEcho = null;  // Defined in UnityEngine.UI
     public HeroBehavior mHero = null;
     private EnemySpawnSystem mEnemySystem = null;
-
+    public WayPoint mWayPoint = null;
     private WayPointSpawnSystem mWayPointSystem = null;
 
     private CameraSupport mMainCamera;
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
         Bounds b = mMainCamera.GetWorldBound();
         mEnemySystem = new EnemySpawnSystem(b.min, b.max);
         mWayPointSystem = new WayPointSpawnSystem();
+        mWayPoint = FindObjectOfType<WayPoint>();
     }
 
 	void Update () {
@@ -33,6 +34,14 @@ public class GameManager : MonoBehaviour {
             Application.Quit();
     }
 
+    //private string GetWayPointMode(WayPoint wp)
+    //{
+    //    string wpStatus = "WAYPOINTS:";
+    //    if (wp.GetWayPointStatus())
+    //        return wpStatus + "Sequence";
+    //    else 
+    //        return wpStatus + "Random";
+    //}
 
     #region Bound Support
     public CameraSupport.WorldBoundStatus CollideWorldBound(Bounds b) { return mMainCamera.CollideWorldBound(b); }
@@ -40,6 +49,6 @@ public class GameManager : MonoBehaviour {
 
     private void EchoGameState()
     {
-        mGameStateEcho.text =  mHero.GetHeroState() + "  " + mEnemySystem.GetEnemyState();
+        mGameStateEcho.text =  mWayPoint.GetWayPointStatus() + " " + mHero.GetHeroState() + "  " + mEnemySystem.GetEnemyState();
     }
 }

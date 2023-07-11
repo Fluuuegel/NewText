@@ -63,7 +63,7 @@ public class HeroBehavior : MonoBehaviour {
             if (Input.GetKey("space"))
             {
                 if(mCoolDown.TriggerCoolDown())
-                    //sync with the egg spawn system
+
                 mEggSystem.SpawnAnEgg(transform.position, transform.up);
                 
             }

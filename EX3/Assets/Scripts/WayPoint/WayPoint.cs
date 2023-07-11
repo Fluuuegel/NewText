@@ -44,9 +44,16 @@ public class WayPoint : MonoBehaviour
 
     }
 
+    public string GetWayPointStatus()
+    {
+        if (isSequence)
+            return "WAYPOINTS: Sequence";
+        else return "WAYPOINTS: Random";
+    }
+
     private void SequenceWayPoint()
     {
-        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 0.1f)
+        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 25f)
         {
             isTurn = true;
             Debug.Log(mWayPoints[mCurrentWayPoint].transform.position);
@@ -73,7 +80,7 @@ public class WayPoint : MonoBehaviour
 
     private void RandomWayPoint()
     {
-        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 0.1f)
+        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 25f)
         {
             isTurn = true;
             Debug.Log("Distance < 25f from WayPoint.cs");

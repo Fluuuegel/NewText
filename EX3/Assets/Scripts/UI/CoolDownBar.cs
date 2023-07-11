@@ -22,23 +22,23 @@ public class CoolDownBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mActive)
+        if (mActive)//如果active，更新冷却条
             UpdateCoolDownBar();
     }
 
-    private void UpdateCoolDownBar()
+    private void UpdateCoolDownBar()//active时，冷却条会变化，由长变短
     {
         float sec = SecondsTillNext();
-        float percentage = sec / mSecToCoolDown;
+        float percentage = sec / mSecToCoolDown;//得到百分比
 
-        if (sec < 0)
+        if (sec < 0)//百分比低于零时回调，并设为不Active
         {
             mActive = false;
             percentage = 1.0f;
         }
             
-        Vector2 s = GetComponent<RectTransform>().sizeDelta;
-        s.x = percentage * mInitBarWidth;
+        Vector2 s = GetComponent<RectTransform>().sizeDelta; //拿到cooldownbar的rectTransform
+        s.x = percentage * mInitBarWidth;//长度为percentage乘初始长度就对了
         GetComponent<RectTransform>().sizeDelta = s;
     }
 
@@ -47,7 +47,7 @@ public class CoolDownBar : MonoBehaviour
         mSecToCoolDown = s;
     }
 
-    private float SecondsTillNext()
+    private float SecondsTillNext()//如果Active，得到冷却时间减去（当前时间与上一次触发时间的差值），用于调节bar的长度
     {
         float secLeft = -1;
         if (mActive)
@@ -59,7 +59,7 @@ public class CoolDownBar : MonoBehaviour
     }
 
     // returns if trigger is successful
-    public bool TriggerCoolDown()
+    public bool TriggerCoolDown()//改变Active状态（发生于英雄发射子弹时）
     {
         bool canTrigger = !mActive;
         if (canTrigger)
@@ -72,8 +72,8 @@ public class CoolDownBar : MonoBehaviour
         return canTrigger;
     }
 
-    public bool ReadyForNext()
-    {
-        return (!mActive);
-    }
+    //public bool ReadyForNext()//返回！mActive
+    //{
+    //    return (!mActive);
+    //}
 }
