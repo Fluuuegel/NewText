@@ -61,6 +61,7 @@ public class WayPointSpawnSystem
                 p.transform.position = new Vector3(mInitPos[i].x + Random.Range(mSpawnRegionMin.x, mSpawnRegionMax.x), 
                                                     mInitPos[i].y + Random.Range(mSpawnRegionMin.y, mSpawnRegionMax.y),
                                                      0f);
+                mWayPointTemplatesSt[i] = p;
             }
         }
     }
