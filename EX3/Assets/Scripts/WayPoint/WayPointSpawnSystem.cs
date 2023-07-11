@@ -7,7 +7,9 @@ public class WayPointSpawnSystem
 
     private Vector2 mSpawnRegionMin, mSpawnRegionMax;
 
-    private GameObject[] mWayPointTemplates = null;
+    public GameObject[] mWayPointTemplates = null;
+
+    public GameObject[] mWayPointTemplatesSt = null;
 
     private const int kTotalWayPoint = 6;
 
@@ -19,6 +21,8 @@ public class WayPointSpawnSystem
         WayPointBehavior.InitializeWayPointSpawnSystem(this);
 
         mWayPointTemplates = new GameObject[kTotalWayPoint];
+        mWayPointTemplatesSt = new GameObject[kTotalWayPoint];
+
         for (int i = 0; i < kTotalWayPoint; i++)
         {
             mWayPointTemplates[i] = Resources.Load<GameObject>("Prefabs/Number" + (i + 1));
@@ -45,6 +49,7 @@ public class WayPointSpawnSystem
         {
             GameObject p = GameObject.Instantiate(mWayPointTemplates[i]) as GameObject;
             p.transform.position = mInitPos[i];
+            mWayPointTemplatesSt[i] = p;
         }
     }
 

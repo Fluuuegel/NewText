@@ -10,14 +10,20 @@ public class WayPoint : MonoBehaviour
     public GameObject[] mWayPoints;
     private int mCurrentWayPoint = 0;
 
-    private int mNextWayPoint = 0;
-
     private bool isSequence = true;
+
+    private Vector3 enemyPosition;
+    private Vector3 waypointPosition;
+    private Vector3 direction;
+    public float enemySpeed = 20f;
+    private Vector3 directionNext;
+    public float enemyRotateRate = 0.05f;
+    private bool isTurn = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        mWayPoints = sWayPointSystem.mWayPointTemplatesSt;
     }
 
     // Update is called once per frame
@@ -40,30 +46,69 @@ public class WayPoint : MonoBehaviour
 
     private void SequenceWayPoint()
     {
-        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 3f)
+        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 0.1f)
         {
-            mNextWayPoint++;
-            if (mNextWayPoint >= mWayPoints.Length)
+            isTurn = true;
+            Debug.Log(mWayPoints[mCurrentWayPoint].transform.position);
+            Debug.Log(Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position));
+            mCurrentWayPoint++;
+            if (mCurrentWayPoint >= mWayPoints.Length)
             {
-                mNextWayPoint = 0;
+                mCurrentWayPoint = 0;
             }
-            mCurrentWayPoint = mNextWayPoint;
+        }
+        if (isTurn)
+        {
+            if(Mathf.Abs(Vector3.Angle(transform.up, (mWayPoints[mCurrentWayPoint].transform.position-transform.position))) <= 5f)
+            {
+                isTurn = false;
+            }
+            enemyTurn();
+        }
+        else
+        {
+            enemyMove();
         }
     }
 
     private void RandomWayPoint()
     {
-        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 3f)
+        if (Vector3.Distance(this.transform.position, mWayPoints[mCurrentWayPoint].transform.position) < 0.1f)
         {
-            while(mNextWayPoint == mCurrentWayPoint) {
-                mNextWayPoint = Random.Range(0, mWayPoints.Length);
+            isTurn = true;
+            Debug.Log("Distance < 25f from WayPoint.cs");
+            mCurrentWayPoint = Random.Range(0, mWayPoints.Length);
+        }
+        if (isTurn)
+        {
+            if (Mathf.Abs(Vector3.Angle(transform.up, (mWayPoints[mCurrentWayPoint].transform.position - transform.position))) <= 5f)
+            {
+                isTurn = false;
             }
+            enemyTurn();
+        }
+        else
+        {
+            enemyMove();
         }
     }
 
-    public Vector3 GetmNextWayPointPos()
+    //enemy move
+    private void enemyMove()
     {
-        return mWayPoints[mNextWayPoint].transform.position;
+        enemyPosition = transform.position;//enemy的位置
+        waypointPosition = mWayPoints[mCurrentWayPoint].transform.position;//下一个waypoint的位置
+        transform.up = Vector3.Normalize(-(enemyPosition - waypointPosition));//获得waypoint的方向
+        transform.position += enemySpeed * Time.smoothDeltaTime * transform.up;//move forward
     }
 
+    //enemy turn
+    private void enemyTurn()
+    {
+        Debug.Log("e up: " + transform.up + ";w dir: " + mWayPoints[mCurrentWayPoint].transform.position);
+        Vector3 p = mWayPoints[mCurrentWayPoint].transform.localPosition;
+        Vector3 v = p - transform.localPosition;
+        transform.up = Vector3.LerpUnclamped(transform.up, v, enemyRotateRate * Time.smoothDeltaTime);
+        transform.position += enemySpeed * Time.smoothDeltaTime * transform.up;//move forward
+    }
 }

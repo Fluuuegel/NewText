@@ -63,7 +63,8 @@ public class HeroBehavior : MonoBehaviour {
             if (Input.GetKey("space"))
             {
                 if(mCoolDown.TriggerCoolDown())
-                    mEggSystem.SpawnAnEgg(transform.position, transform.up);
+
+                mEggSystem.SpawnAnEgg(transform.position, transform.up);
                 
             }
 
@@ -72,7 +73,7 @@ public class HeroBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hero touched");
+       // Debug.Log("Hero touched");
         if (collision.gameObject.name == "Enemy(Clone)")
             TouchedEnemy();
     }
